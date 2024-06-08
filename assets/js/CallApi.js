@@ -2221,8 +2221,8 @@ function LogOut() {
 async function AccountManagement() {
   try {
     let search = document.getElementById("input__search").value;
-    if (search === null || search === undefined || search === "")
-      search = "string";
+    if (!search) search = "string";
+    
     const getClassUrl = `https://localhost:7029/api/Users/ManagerAccount?search=${search}`;
     const response = await fetch(getClassUrl);
     const data = await response.json();
@@ -2237,59 +2237,52 @@ async function AccountManagement() {
       table.id = "table__manager";
       table.className = "table__manager";
       table.innerHTML = `
-                <tr class="product__myshop--title">
-                    <th style="width: 290px">Email</th>
-                    <th style="width: 223px">Account Name</th>
-                    <th style="width: 223px">Account Type</th>
-                    <th style="width: 88px">Quantity of goods sold</th>
-                    <th style="width: 91px">Quantity Purchased</th>
-                    <th style="width: 115px">Tình trạng</th>
-                    <th style="width: 150px">Action</th>
-                </tr>
-            `;
+        <tr class="product__myshop--title">
+          <th>Email</th>
+          <th>Account Name</th>
+          <th>Account Type</th>
+          <th>Quantity of goods sold</th>
+          <th>Quantity Purchased</th>
+          <th>Tình trạng</th>
+          <th>Action</th>
+        </tr>
+      `;
       productContainer.appendChild(table);
+
       let i = 0;
       data.result.forEach((product) => {
         i++;
-        let lock = "none";
-        let unlock = "none";
-        if (product.usedState === 10) {
-          lock = "none";
-          unlock = "block";
-        } else {
-          lock = "block";
-          unlock = "none";
-        }
+        let lock = product.usedState === 10 ? "none" : "block";
+        let unlock = product.usedState === 10 ? "block" : "none";
+
+        let AccountType = product.brandName != null ? "Purchase Account" : "Sale Account";
+        
         var productDiv = document.createElement("tr");
         productDiv.className = "product__myshop--body";
-        let AccountType = "Sale Account";
-        if (product.brandName != null) AccountType = "Purchase Account";
         productDiv.innerHTML = `
-                    <td style="width: 200px"><span>${product.email}</span></td>
-                    <td style="width: 200px">${product.fullName}</td>
-                    <td style="width: 200px">${AccountType}</td>
-                    <td style="width: 100px">${product.totalSell}</td>
-                    <td style="width: 100px">${product.totalBought}</td>
-                    <td style="width: 100px">
-                        <i class="fa-solid fa-lock lock main" id="lock" style="display: ${lock}"></i>
-                        <i class="fa-solid fa-unlock unlock main" id="unlock" style="display: ${unlock}"></i>
-                    </td>
-                    <td class="option" style="width: 150px">
-                        <div class="select_choose">
-                            <i class="fa-solid fa-lock lock main" id="lock" onclick="unlock(), UpdateUsedStated('${product.id}', 11)"></i>
-                            <i class="fa-solid fa-unlock unlock main" id="unlock" onclick="lock(), UpdateUsedStated('${product.id}', 10)"></i>
-                            <i class="fa-regular fa-trash-can delete--icon" onclick="DeleteUser('${product.id}', 'Account')"></i>
-                        </div>
-                    </td>
-                `;
+          <td>${product.email}</td>
+          <td>${product.fullName}</td>
+          <td>${AccountType}</td>
+          <td>${product.totalSell}</td>
+          <td>${product.totalBought}</td>
+          <td>
+            <i class="fa-solid fa-lock lock main" id="lock" style="display: ${lock}"></i>
+            <i class="fa-solid fa-unlock unlock main" id="unlock" style="display: ${unlock}"></i>
+          </td>
+          <td class="option" style="width: 150px">
+            <div class="select_choose">
+              <i class="fa-solid fa-lock lock main" id="lock" onclick="UpdateUsedStated('${product.id}', 11)"></i>
+              <i class="fa-solid fa-unlock unlock main" id="unlock" onclick="UpdateUsedStated('${product.id}', 10)"></i>
+              <i class="fa-regular fa-trash-can delete--icon" onclick="DeleteUser('${product.id}', 'Account')"></i>
+            </div>
+          </td>
+        `;
 
-        productContainer.appendChild(productDiv);
+        table.appendChild(productDiv);
       });
+
       var shop_manager__gross = document.getElementById("shop_manager--gross");
-      shop_manager__gross.innerHTML = "";
-      shop_manager__gross.innerHTML = `
-                <span>Total Account: ${i}</span>
-            `;
+      shop_manager__gross.innerHTML = `<span>Total Account: ${i}</span>`;
     }
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -2297,11 +2290,12 @@ async function AccountManagement() {
   }
 }
 
+
 async function StoreManager() {
   try {
     let search = document.getElementById("input__search").value;
-    if (search === null || search === undefined || search === "")
-      search = "string";
+    if (!search) search = "string";
+    
     const getClassUrl = `https://localhost:7029/api/Shop/ManagerShop?search=${search}`;
     const response = await fetch(getClassUrl);
     const data = await response.json();
@@ -2316,79 +2310,57 @@ async function StoreManager() {
       table.id = "table__manager";
       table.className = "table__manager";
       table.innerHTML = `
-                <tr class="product__myshop--title">
-                    <th style="width: 223px">Email</th>
-                    <th style="width: 216px">Account Name</th>
-                    <th style="width: 219px">Name of the Store</th>
-                    <th style="width: 134px">Registration Date</th>
-                    <th style="width: 134px">Tình trạng</th>
-                    <th style="width: 173px">Action</th>
-                </tr>
-            `;
+        <tr class="product__myshop--title">
+          <th>Email</th>
+          <th>Account Name</th>
+          <th>Name of the Store</th>
+          <th>Registration Date</th>
+          <th>Tình trạng</th>
+          <th>Action</th>
+        </tr>
+      `;
       productContainer.appendChild(table);
+
       let i = 0;
       data.result.forEach((product) => {
         i++;
-        //
-        let lock = "none";
-        let unlock = "none";
-        if (product.roles === "User") {
-          lock = "block";
-          unlock = "none";
-        } else {
-          lock = "none";
-          unlock = "block";
-        }
-        // Chuỗi ngày tháng ban đầu
+        let lock = product.roles === "User" ? "block" : "none";
+        let unlock = product.roles === "User" ? "none" : "block";
+
+        // Format the date
         var ngayThangBanDau = product.createDate;
-
-        // Chuyển chuỗi thành đối tượng Date
         var ngayThang = new Date(ngayThangBanDau);
-
-        // Lấy ngày, tháng và năm từ đối tượng Date
         var ngay = ngayThang.getDate();
-        var thang = ngayThang.getMonth() + 1; // Tháng bắt đầu từ 0, nên cần cộng thêm 1
+        var thang = ngayThang.getMonth() + 1;
         var nam = ngayThang.getFullYear();
-
-        // Định dạng lại chuỗi ngày tháng thành "dd/mm/yyyy"
         var ngayThangFormatted =
-          (ngay < 10 ? "0" : "") +
-          ngay +
-          "/" +
-          (thang < 10 ? "0" : "") +
-          thang +
-          "/" +
-          nam;
-        //
+          (ngay < 10 ? "0" : "") + ngay + "/" + (thang < 10 ? "0" : "") + thang + "/" + nam;
+        
         var productDiv = document.createElement("tr");
         productDiv.className = "product__myshop--body";
-        let AccountType = "Sale Account";
-        if (product.brandName != null) AccountType = "Purchase Account";
         productDiv.innerHTML = `
-                    <td style="width: 200px"><span>${product.email}</span></td>
-                    <td style="width: 200px">${product.fullName}</td>
-                    <td style="width: 200px">${product.brandName}</td>
-                    <td style="width: 130px">${ngayThangFormatted}</td>
-                    <td style="width: 130px">
-                        <i class="fa-solid fa-lock lock main" id="lock" style="display: ${lock}"></i>
-                        <i class="fa-solid fa-unlock unlock main" id="unlock" style="display: ${unlock}"></i>
-                    </td>
-                    <td class="option" style="width: 160px">
-                        <div class="select_choose">
-                            <i class="fa-solid fa-lock lock main" id="lock" onclick="unlock(), UpdateUsedRole('${product.id}', 'User')"></i>
-                            <i class="fa-solid fa-unlock unlock main" id="unlock" onclick="lock(), UpdateUsedRole('${product.id}', 'Shop')"></i>
-                            <i class="fa-regular fa-trash-can delete--icon" onclick="DeleteUser('${product.id}', 'Shop')"></i>
-                        </div>
-                    </td>
-                `;
+          <td>${product.email}</td>
+          <td>${product.fullName}</td>
+          <td>${product.brandName}</td>
+          <td>${ngayThangFormatted}</td>
+          <td>
+            <i class="fa-solid fa-lock lock main" id="lock" style="display: ${lock}"></i>
+            <i class="fa-solid fa-unlock unlock main" id="unlock" style="display: ${unlock}"></i>
+          </td>
+          <td class="option">
+            <div class="select_choose">
+              <i class="fa-solid fa-lock lock main" id="lock" onclick="UpdateUsedRole('${product.id}', 'User')"></i>
+              <i class="fa-solid fa-unlock unlock main" id="unlock" onclick="UpdateUsedRole('${product.id}', 'Shop')"></i>
+              <i class="fa-regular fa-trash-can delete--icon" onclick="DeleteUser('${product.id}', 'Shop')"></i>
+            </div>
+          </td>
+        `;
 
-        productContainer.appendChild(productDiv);
+        table.appendChild(productDiv);
       });
+
       var shop_manager__gross = document.getElementById("shop_manager--gross");
-      shop_manager__gross.innerHTML = "";
-      shop_manager__gross.innerHTML = `
-                <span>Total Account: ${i}</span>
-            `;
+      shop_manager__gross.innerHTML = `<span>Total Account: ${i}</span>`;
     }
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -2396,11 +2368,12 @@ async function StoreManager() {
   }
 }
 
+
 async function CencorshipManagement() {
   try {
     let search = document.getElementById("input__search").value;
-    if (search === null || search === undefined || search === "")
-      search = "string";
+    if (!search) search = "string";
+    
     const getClassUrl = `https://localhost:7029/api/Product/CencorshipManagement?search=${search}`;
     const response = await fetch(getClassUrl);
     const data = await response.json();
@@ -2415,53 +2388,48 @@ async function CencorshipManagement() {
       table.id = "table__manager";
       table.className = "table__manager";
       table.innerHTML = `
-                <tr class="product__myshop--title">
-                    <th style="width: 158px">Image</th>
-                    <th style="width: 206px">Product's Name</th>
-                    <th style="width: 186px">Name of the Store</th>
-                    <th style="width: 156px">Request</th>
-                    <th style="width: 155px">Action</th>
-                </tr>
-            `;
+        <tr class="product__myshop--title">
+          <th>Image</th>
+          <th>Product's Name</th>
+          <th>Name of the Store</th>
+          <th>Request</th>
+          <th>Action</th>
+        </tr>
+      `;
       productContainer.appendChild(table);
 
       let i = 0;
       data.result.forEach((product) => {
-        let status = "Update product";
-        if (product.usedStatus === 7) status = "Post of sale";
+        let status = product.usedStatus === 7 ? "Post of sale" : "Update product";
         i++;
+        
         var productDiv = document.createElement("tr");
         productDiv.className = "product__myshop--body";
-        let AccountType = "Sale Account";
-        if (product.brandName != null) AccountType = "Purchase Account";
         productDiv.innerHTML = `
-                    <tr>
-                        <td style="width: 160px"><img class="td_img" src="${product.img}" alt=""></td>
-                        <td style="width: 211px">${product.name}</td>
-                        <td style="width: 190px">${product.brandName}</td>
-                        <td style="width: 160px">${status}</td>
-                        <td class="option" style="width: 160px">
-                            <div class="select_choose">
-                                <i class="fa-solid fa-check" onclick="UpdateCencorshipManagement('${product.id}')"></i>
-                                <i class="fa-regular fa-trash-can delete--icon" onclick="DeleteProductCencorshipManagement('${product.id}')"></i>
-                            </div>
-                        </td>
-                    </tr>
-                `;
+          <td><img class="td_img" src="${product.img}" alt=""></td>
+          <td>${product.name}</td>
+          <td>${product.brandName}</td>
+          <td>${status}</td>
+          <td class="option">
+            <div class="select_choose">
+              <i class="fa-solid fa-check" onclick="UpdateCencorshipManagement('${product.id}')"></i>
+              <i class="fa-regular fa-trash-can delete--icon" onclick="DeleteProductCencorshipManagement('${product.id}')"></i>
+            </div>
+          </td>
+        `;
 
-        productContainer.appendChild(productDiv);
+        table.appendChild(productDiv);
       });
+
       var shop_manager__gross = document.getElementById("shop_manager--gross");
-      shop_manager__gross.innerHTML = "";
-      shop_manager__gross.innerHTML = `
-                <span>Total Account: ${i}</span>
-            `;
+      shop_manager__gross.innerHTML = `<span>Total Account: ${i}</span>`;
     }
   } catch (error) {
     console.error("Error fetching data:", error);
     alert(error);
   }
 }
+
 
 async function UpdateCencorshipManagement(IdProduct) {
   if (confirm("Bạn có chắc chắn muốn duyệt sản phẩm này không?")) {
@@ -2682,58 +2650,52 @@ async function Revenue() {
       table.id = "table__manager";
       table.className = "table__manager";
       table.innerHTML = `
-                <tr class="product__myshop--title">
-                    <th style="width: 158px">Image</th>
-                    <th style="width: 206px">Product's name</th>
-                    <th style="width: 186px">Caregory</th>
-                    <th style="width: 156px">Quantity</th>
-                    <th style="width: 155px">Sold</th>
-                    <th style="width: 155px">Remaining</th>
-                    <th style="width: 155px">Revenue</th>
-                </tr>
-            `;
+        <tr class="product__myshop--title">
+          <th>Image</th>
+          <th>Product's name</th>
+          <th>Category</th>
+          <th>Quantity</th>
+          <th>Sold</th>
+          <th>Remaining</th>
+          <th>Revenue</th>
+        </tr>
+      `;
       productContainer.appendChild(table);
 
       let i = 0;
+      let totalRevenue = 0;
 
-      let total = 0;
       data.result.forEach((product) => {
-        total += product.price;
-        let status = "Update product";
-        if (product.usedStatus === 7) status = "Post of sale";
+        totalRevenue += product.price;
         i++;
+        
         var productDiv = document.createElement("tr");
         productDiv.className = "product__myshop--body";
-        let AccountType = "Sale Account";
-        if (product.brandName != null) AccountType = "Purchase Account";
         productDiv.innerHTML = `
-                    <td><img class="td_img" src="${product.img}" alt=""></td>
-                    <td class="product_name">${product.name}</td>
-                    <td>${product.category}</td>
-                    <td>${product.quantity}</td>
-                    <td>${product.sold}</td>
-                    <td>${product.remaining}</td>
-                    <td><span>${product.price}</span></td>
-                `;
+          <td><img class="td_img" src="${product.img}" alt=""></td>
+          <td class="product_name">${product.name}</td>
+          <td>${product.category}</td>
+          <td>${product.quantity}</td>
+          <td>${product.sold}</td>
+          <td>${product.remaining}</td>
+          <td><span>${product.price}</span></td>
+        `;
 
-        productContainer.appendChild(productDiv);
+        table.appendChild(productDiv);
       });
+
       var shop_manager__gross = document.getElementById("shop_manager--gross");
-      shop_manager__gross.innerHTML = "";
-      shop_manager__gross.innerHTML = `
-                <span>Total Account: ${i}</span>
-            `;
-      var total_renevue = document.getElementById("total_renevue");
-      total_renevue.innerHTML = "";
-      total_renevue.innerHTML = `
-                <span>Total Revenue: ${total}</span>
-            `;
+      shop_manager__gross.innerHTML = `<span>Total Account: ${i}</span>`;
+
+      var total_revenue = document.getElementById("total_revenue");
+      total_revenue.innerHTML = `<span>Total Revenue: ${totalRevenue}</span>`;
     }
   } catch (error) {
     console.error("Error fetching data:", error);
     alert(error);
   }
 }
+
 
 async function DeleteProductCencorshipManagement(Id) {
   if (confirm("Bạn có chắc chắn muốn xóa không?")) {
