@@ -691,3 +691,27 @@ table, th, td {
         flex: 1;
     }
 }
+
+.function__item--accountmanager i,
+.function__item--account i,
+.function__item--cart i,
+.function__item--shop i,
+.function__item--history i {
+    padding-right: 20px;
+}
+
+.function__item--accountmanager i {
+    padding-left: 3px;
+}
+
+.function__user {
+    border-right: 1px solid gray;
+    display: block;
+    width: 80%;
+}
+
+.function__admin {
+    border-right: 1px solid gray;
+    width: 80%;
+    display: block;
+}

@@ -79,10 +79,12 @@ function SignIn() {
   const lastname = document.getElementById("last_name").value;
   const NumberPhone = document.getElementById("phone_number").value;
   const Address = document.getElementById("address").value;
-  const avataShop = document.getElementById("imageInput").value;
-  const BrandName = document.getElementById("brandName").value;
-  const CheckShop = document.getElementById("action");
-  if (CheckShop.checked) {
+  // const avataShop = document.getElementById("imageInput").value;
+  const avataShop = "123";
+  // const BrandName = document.getElementById("brandName").value;
+  const BrandName = "123";
+  // const CheckShop = document.getElementById("action");
+  if (false) {
     const signinUrl = "https://localhost:7029/api/Users/SignUpShop";
     fetch(signinUrl, {
       method: "POST",
@@ -726,7 +728,7 @@ function AddProduct() {
     document.getElementById("productinfo_input").value;
   const product_detail = document.getElementById("productdetails_input").value;
   const price = document.getElementById("productprice_input").value;
-  const Material = document.getElementById("productmaterial_input").value;
+  // const Material = document.getElementById("productmaterial_input").value;
   const type = document.getElementById("select__type").value;
   const colors = getTableData().color;
   const sizes = getTableData().size;
@@ -742,7 +744,7 @@ function AddProduct() {
       name: name_product,
       idProducer: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
       idProductType: type,
-      material: Material,
+      material: "123",
       price: price,
       description: product_information,
       idDiscount: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
@@ -1351,26 +1353,27 @@ async function GetProductDetail() {
                     <div class="product_button--buy" id="product_button--buy" onclick="AddToOrder()">BUY NOW</div>
                     <div class="product_button--add" id="product_button--add" onclick= "AddToCart()">ADD TO BAG</div>
                 </div>
-                <div class="product_infor--size">
-                    <table>
-                        <tr>
-                            <th></th>
-                            <th>M</th>
-                            <th>L</th>
-                        </tr>
-                        <tr>
-                            <td>Heigh</td>
-                            <td>30</td>
-                            <td>36</td>
-                        </tr>
-                        <tr>
-                            <td>Long</td>
-                            <td>25</td>
-                            <td>30</td>
-                        </tr>
-                    </table>
-                </div>
+                
             `;
+            // + <div class="product_infor--size">
+            //         <table>
+            //             <tr>
+            //                 <th></th>
+            //                 <th>M</th>
+            //                 <th>L</th>
+            //             </tr>
+            //             <tr>
+            //                 <td>Heigh</td>
+            //                 <td>30</td>
+            //                 <td>36</td>
+            //             </tr>
+            //             <tr>
+            //                 <td>Long</td>
+            //                 <td>25</td>
+            //                 <td>30</td>
+            //             </tr>
+            //         </table>
+            //     </div>
 
       product__infor.appendChild(product__info__title);
       if (checkQuantityNumber <= 0) {
@@ -1381,27 +1384,27 @@ async function GetProductDetail() {
       }
       let totalNumber = 0;
       const productInforTitle = document.getElementById("product__info__title");
-      const div__size = document.createElement("div");
-      div__size.className = "choose_size";
-      div__size.id = "choose_size";
-      productInforTitle.appendChild(div__size);
-      var div__size__element = document.getElementById("choose_size");
-      var productSelect__title = document.createElement("label");
-      productSelect__title.className = "productcategory_label";
-      productSelect__title.textContent = "Select Size";
-      div__size__element.appendChild(productSelect__title);
+      // const div__size = document.createElement("div");
+      // div__size.className = "choose_size";
+      // div__size.id = "choose_size";
+      // productInforTitle.appendChild(div__size);
+      // var div__size__element = document.getElementById("choose_size");
+      // var productSelect__title = document.createElement("label");
+      // productSelect__title.className = "productcategory_label";
+      // productSelect__title.textContent = "Select Size";
+      // div__size__element.appendChild(productSelect__title);
 
-      var productSelect = document.createElement("select");
-      productSelect.id = "select__type";
-      data.result.products.forEach((product) => {
-        var option = document.createElement("option");
-        option.value = product.id;
-        option.textContent = product.size;
-        productSelect.appendChild(option);
-        totalNumber += product.number;
-      });
-      div__size__element.appendChild(productSelect);
-      productInforTitle.appendChild(div__size__element);
+      // var productSelect = document.createElement("select");
+      // productSelect.id = "select__type";
+      // data.result.products.forEach((product) => {
+      //   var option = document.createElement("option");
+      //   option.value = product.id;
+      //   option.textContent = product.size;
+      //   productSelect.appendChild(option);
+      //   totalNumber += product.number;
+      // });
+      // div__size__element.appendChild(productSelect);
+      // productInforTitle.appendChild(div__size__element);
 
       // Color
 
@@ -1974,7 +1977,7 @@ async function FixProduct() {
     document.getElementById("productinfo_input").value;
   const product_detail = document.getElementById("productdetails_input").value;
   const price = document.getElementById("productprice_input").value;
-  const Material = document.getElementById("productmaterial_input").value;
+  // const Material = document.getElementById("productmaterial_input").value;
   const colors = getTableData().color;
   const sizes = getTableData().size;
   const numbers = getTableData().number;
@@ -1989,7 +1992,7 @@ async function FixProduct() {
       name: name_product,
       idProducer: producer,
       idProductType: type,
-      material: Material,
+      material: "123",
       price: price,
       description: product_information,
       idDiscount: "3fa85f64-5717-4562-b3fc-2c963f66afa6",

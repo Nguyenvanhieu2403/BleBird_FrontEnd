@@ -440,7 +440,7 @@ li:hover .select_option {
 
 .prev, .next {
     position: absolute;
-    top: 70%;
+    top: 40%;
     font-size: 40px;
     color: white;
     padding: 10px;
