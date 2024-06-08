@@ -1456,15 +1456,15 @@ async function GetProductDetail() {
       // productSelect__title.textContent = "Select Size";
       // div__size__element.appendChild(productSelect__title);
 
-      // var productSelect = document.createElement("select");
-      // productSelect.id = "select__type";
-      // data.result.products.forEach((product) => {
-      //   var option = document.createElement("option");
-      //   option.value = product.id;
-      //   option.textContent = product.size;
-      //   productSelect.appendChild(option);
-      //   totalNumber += product.number;
-      // });
+      var productSelect = document.createElement("select");
+      productSelect.id = "select__type";
+      data.result.products.forEach((product) => {
+        var option = document.createElement("option");
+        option.value = product.id;
+        option.textContent = product.size;
+        productSelect.appendChild(option);
+        totalNumber += product.number;
+      });
       // div__size__element.appendChild(productSelect);
       // productInforTitle.appendChild(div__size__element);
 
