@@ -60,6 +60,10 @@ function CheckRole() {
   if (role == "Admin") {
     var function__admin = document.getElementById("function__admin");
     function__admin.style.display = "block";
+    var function__itemCart = document.getElementById("function__item--cart");
+    function__itemCart.style.display = "none";
+    var function__itemHistory = document.getElementById("function__item--history" );
+    function__itemHistory.style.display = "none"; 
   } else if (role == "User") {
     var function__admin = document.getElementById("function__admin");
     function__admin.style.display = "none";
@@ -68,6 +72,10 @@ function CheckRole() {
   } else if (role == "Shop") {
     var function__admin = document.getElementById("function__admin");
     function__admin.style.display = "none";
+    var function__itemCart = document.getElementById("function__item--cart");
+    function__itemCart.style.display = "none";
+    var function__itemHistory = document.getElementById("function__item--history");
+    function__itemHistory.style.display = "none"; 
   }
 }
 
@@ -716,14 +724,68 @@ async function GetCategory() {
 //     }
 // }
 
-function AddProduct() {
+async function  AddProduct() {
   const token = localStorage.getItem("login");
   const name_product = document.getElementById("productname_input").value;
-  const img_main = document.getElementById("productimg_input--img__main").value;
-  const img_1 = document.getElementById("productimg_input--img__1").value;
-  const img_2 = document.getElementById("productimg_input--img__2").value;
-  const img_3 = document.getElementById("productimg_input--img__3").value;
-  const img_4 = document.getElementById("productimg_input--img__4").value;
+  // const img_main = document.getElementById("productimg_input--img__main").value;
+  // const img_1 = document.getElementById("productimg_input--img__1").value;
+  // const img_2 = document.getElementById("productimg_input--img__2").value;
+  // const img_3 = document.getElementById("productimg_input--img__3").value;
+  // const img_4 = document.getElementById("productimg_input--img__4").value;
+
+  var seafoodImages = [];
+
+  var imageInputs = [
+    "productimg_input--img__main",
+    "productimg_input--img__1",
+    "productimg_input--img__2",
+    "productimg_input--img__3",
+    "productimg_input--img__4",
+  ];
+
+  const uploadImage = imageInputs.map(async (id, index) => {
+    var imageName = document.getElementById(id); // Lấy tên ảnh từ dataset
+
+    if (imageName) {
+      const file = imageName.files[0];
+      if (!file) {
+        alert("Please select a file first!");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      try {
+        const response = await fetch(
+          "https://localhost:7029/api/Product/UploadImgProduct",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`Error: ${response.statusText}`);
+        }
+
+        const result = await response.json();
+        console.log(result.id);
+        const linkImg = `https://drive.google.com/thumbnail?id=${result.id}&sz=w800`;
+        seafoodImages.push({ nameImage: linkImg, index: index});
+      } catch (error) {
+        console.error("Error:", error);
+        alert("Failed to upload file!");
+      }
+    }
+  });
+
+  await Promise.all(uploadImage);
+
+  seafoodImages.sort((a, b) => a.index - b.index);
+  console.log(seafoodImages);
+
+
   const product_information =
     document.getElementById("productinfo_input").value;
   const product_detail = document.getElementById("productdetails_input").value;
@@ -750,23 +812,23 @@ function AddProduct() {
       idDiscount: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
       images: [
         {
-          img: img_main,
+          img: seafoodImages[0].nameImage,
           usedStatus: 1,
         },
         {
-          img: img_1,
+          img: seafoodImages[1].nameImage,
           usedStatus: 2,
         },
         {
-          img: img_2,
+          img: seafoodImages[2].nameImage,
           usedStatus: 2,
         },
         {
-          img: img_3,
+          img: seafoodImages[3].nameImage,
           usedStatus: 2,
         },
         {
-          img: img_4,
+          img: seafoodImages[4].nameImage,
           usedStatus: 2,
         },
       ],
@@ -1326,7 +1388,7 @@ async function GetProductDetail() {
       const imgElement__main = document.createElement("div");
       imgElement__main.className = "main_img";
       imgElement__main.innerHTML = `
-                <img id="big_img" src="${data.result.images[1].img}" alt="">
+                <img id="big_img" src="${data.result.images[0].img}" alt="">
             `;
       imgContainer__main.appendChild(imgElement__main);
 
@@ -1906,13 +1968,13 @@ async function GetProductFix() {
       localStorage.setItem("producer", data.result.idProducer);
       //
       productname_input.value = data.result.name;
-      data.result.images.forEach((product) => {
-        productimg_input__img__main.value = product.img;
-        productimg_input__img__1.value = product.img;
-        productimg_input__img__2.value = product.img;
-        productimg_input__img__3.value = product.img;
-        productimg_input__img__4.value = product.img;
-      });
+      // data.result.images.forEach((product) => {
+      //   productimg_input__img__main.value = product.img;
+      //   productimg_input__img__1.value = product.img;
+      //   productimg_input__img__2.value = product.img;
+      //   productimg_input__img__3.value = product.img;
+      //   productimg_input__img__4.value = product.img;
+      // });
       productinfo_input.value = data.result.description;
       productdetails_input.value = data.result.products[1].description;
       productprice_input.value = data.result.price;
@@ -1967,12 +2029,64 @@ async function FixProduct() {
   if (type === null || type === undefined)
     type = "3fa85f64-5717-4562-b3fc-2c963f66afa6";
 
+  var seafoodImages = [];
+
+  var imageInputs = [
+    "productimg_input--img__main",
+    "productimg_input--img__1",
+    "productimg_input--img__2",
+    "productimg_input--img__3",
+    "productimg_input--img__4",
+  ];
+
+  const uploadImage = imageInputs.map(async (id, index) => {
+    var imageName = document.getElementById(id); // Lấy tên ảnh từ dataset
+
+    if (imageName) {
+      const file = imageName.files[0];
+      if (!file) {
+        alert("Please select a file first!");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      try {
+        const response = await fetch(
+          "https://localhost:7029/api/Product/UploadImgProduct",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`Error: ${response.statusText}`);
+        }
+
+        const result = await response.json();
+        console.log(result.id);
+        const linkImg = `https://drive.google.com/thumbnail?id=${result.id}&sz=w800`;
+        seafoodImages.push({ nameImage: linkImg, index: index});
+      } catch (error) {
+        console.error("Error:", error);
+        alert("Failed to upload file!");
+      }
+    }
+  });
+
+  await Promise.all(uploadImage);
+
+  seafoodImages.sort((a, b) => a.index - b.index);
+  console.log(seafoodImages);
+
   const name_product = document.getElementById("productname_input").value;
-  const img_main = document.getElementById("productimg_input--img__main").value;
-  const img_1 = document.getElementById("productimg_input--img__1").value;
-  const img_2 = document.getElementById("productimg_input--img__2").value;
-  const img_3 = document.getElementById("productimg_input--img__3").value;
-  const img_4 = document.getElementById("productimg_input--img__4").value;
+  // const img_main = document.getElementById("productimg_input--img__main").value;
+  // const img_1 = document.getElementById("productimg_input--img__1").value;
+  // const img_2 = document.getElementById("productimg_input--img__2").value;
+  // const img_3 = document.getElementById("productimg_input--img__3").value;
+  // const img_4 = document.getElementById("productimg_input--img__4").value;
   const product_information =
     document.getElementById("productinfo_input").value;
   const product_detail = document.getElementById("productdetails_input").value;
@@ -1998,23 +2112,23 @@ async function FixProduct() {
       idDiscount: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
       images: [
         {
-          img: img_main,
+          img: seafoodImages[0].nameImage,
           usedStatus: 1,
         },
         {
-          img: img_1,
+          img: seafoodImages[1].nameImage,
           usedStatus: 2,
         },
         {
-          img: img_2,
+          img: seafoodImages[2].nameImage,
           usedStatus: 2,
         },
         {
-          img: img_3,
+          img: seafoodImages[3].nameImage,
           usedStatus: 2,
         },
         {
-          img: img_4,
+          img: seafoodImages[4].nameImage,
           usedStatus: 2,
         },
       ],
@@ -2036,7 +2150,7 @@ async function FixProduct() {
     .then((data) => {
       alert(data.result);
       location.reload(true);
-      location.href = "../page/myshop.html";
+      location.href = "../../myshop.html";
     })
     .catch((error) => {
       // Xử lý lỗi
@@ -2248,7 +2362,6 @@ async function AccountManagement() {
         </tr>
       `;
       productContainer.appendChild(table);
-
       let i = 0;
       data.result.forEach((product) => {
         i++;
@@ -2642,7 +2755,8 @@ async function Revenue() {
 
     const productContainer = document.getElementById("product_manager");
     productContainer.innerHTML = "";
-
+    let i = 0;
+    let total = 0;
     if (!Array.isArray(data.result) || data.result.length === 0) {
       productContainer.innerHTML = '<h1 id="Data__null">Không có dữ liệu</h1>';
     } else {
@@ -2662,15 +2776,16 @@ async function Revenue() {
       `;
       productContainer.appendChild(table);
 
-      let i = 0;
-      let totalRevenue = 0;
 
       data.result.forEach((product) => {
-        totalRevenue += product.price;
+        total += product.price;
+        let status = "Update product";
+        if (product.usedStatus === 7) status = "Post of sale";
         i++;
-        
         var productDiv = document.createElement("tr");
         productDiv.className = "product__myshop--body";
+        let AccountType = "Sale Account";
+        if (product.brandName != null) AccountType = "Purchase Account";
         productDiv.innerHTML = `
           <td><img class="td_img" src="${product.img}" alt=""></td>
           <td class="product_name">${product.name}</td>
@@ -2683,13 +2798,18 @@ async function Revenue() {
 
         table.appendChild(productDiv);
       });
-
-      var shop_manager__gross = document.getElementById("shop_manager--gross");
-      shop_manager__gross.innerHTML = `<span>Total Account: ${i}</span>`;
-
-      var total_revenue = document.getElementById("total_revenue");
-      total_revenue.innerHTML = `<span>Total Revenue: ${totalRevenue}</span>`;
+      
     }
+    var shop_manager__gross = document.getElementById("shop_manager--gross");
+      shop_manager__gross.innerHTML = "";
+      shop_manager__gross.innerHTML = `
+                <span>Gross Product: ${i}</span>
+            `;
+      var total_renevue = document.getElementById("total_renevue");
+      total_renevue.innerHTML = "";
+      total_renevue.innerHTML = `
+                <span>Total Revenue: ${total}</span>
+            `;
   } catch (error) {
     console.error("Error fetching data:", error);
     alert(error);
