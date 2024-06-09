@@ -2,6 +2,11 @@ body {
     margin: 0;
 }
 
+.product__one--name {
+    width: 220px;
+
+}
+
 /* header */
 .header__logo{
     text-align: center;

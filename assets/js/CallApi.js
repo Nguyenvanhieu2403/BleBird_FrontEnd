@@ -62,8 +62,8 @@ function CheckRole() {
     function__admin.style.display = "block";
     var function__itemCart = document.getElementById("function__item--cart");
     function__itemCart.style.display = "none";
-    var function__itemHistory = document.getElementById("function__item--history" );
-    function__itemHistory.style.display = "none"; 
+    // var function__itemHistory = document.getElementById("function__item--history" );
+    // function__itemHistory.style.display = "none"; 
   } else if (role == "User") {
     var function__admin = document.getElementById("function__admin");
     function__admin.style.display = "none";
@@ -74,8 +74,8 @@ function CheckRole() {
     function__admin.style.display = "none";
     var function__itemCart = document.getElementById("function__item--cart");
     function__itemCart.style.display = "none";
-    var function__itemHistory = document.getElementById("function__item--history");
-    function__itemHistory.style.display = "none"; 
+    // var function__itemHistory = document.getElementById("function__item--history");
+    // function__itemHistory.style.display = "none"; 
   }
 }
 
@@ -212,7 +212,7 @@ async function displayProductByProductType(
                                 <span>${product.name}</span>
                             </div>
                             <div class="shoe_content--price">
-                                <span>$${product.price}</span>
+                                <span>${product.price}</span>
                             </div>
                         </div>
                     </div>
@@ -261,7 +261,7 @@ async function displayPageBagByProductType(
                             <p>${product.name}</p>
                         </div>
                         <div class="product__one--price">
-                            <span>$${product.price}</span>
+                            <span>${product.price}</span>
                         </div>
                     </div>
                     
@@ -389,8 +389,23 @@ async function ShowHistoryOrders(pageIndex, IdClass) {
                             <div class="product_information--img">
                                 <img src="${product.img}" alt="">
                             </div>
+                            <div class="product_information--user">
+                                <p class="product_name">Mã đơn hàng: ${product.orderId}</p>
+                                <p class="product_color">Tên khách hàng: ${
+                                  product.fullName
+                                }</p>
+                                <p class="product_quantity">Email: ${
+                                  product.email
+                                }</p>
+                                <p class="product_size">SĐT: 0${
+                                  product.phoneNumber
+                                }</p>
+                                <p class="product_size">Địa chỉ: ${
+                                  product.address
+                                }</p>
+                            </div>
                             <div class="product_information--info">
-                                <p class="product_name">${product.name}</p>
+                                <p class="product_name">Tên sản phẩm: ${product.name}</p>
                                 <p class="product_color">Color: ${
                                   product.color
                                 }</p>
@@ -1599,7 +1614,7 @@ async function GetProductDetail() {
       product_desc__info.innerHTML = "";
       product_desc__info.innerHTML = `
                 <p>${data.result.description}</p>
-            <p>${data.result.products[1].description}</p>
+            <p>${data.result.products[0].description}</p>
             `;
       product_desc__text.appendChild(product_desc__info);
 
