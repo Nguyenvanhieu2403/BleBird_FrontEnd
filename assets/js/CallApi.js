@@ -194,20 +194,23 @@ async function displayProductByProductType(
         const productDiv = document.createElement("div");
         productDiv.className = "col l-2-4 m-4 c-6 fix_padding";
         let sales = Math.floor(Math.random() * 50);
+        let random = Math.floor(Math.random() * 50);
         productDiv.innerHTML = `
                     <div class="product_shoe--item"  onclick="InsertIdProductFromShopLocal('${
                       product.id
                     }')">
-                        <div class="shoe_item--img">
-                            <i class="fa-sharp fa-solid fa-bookmark shoe_item--icon"></i>
+                        <div class="shoe_item--img ${random %2==0? 'dontShowfavourit' : ''}">
+                            
+                            ${random %2==0? `<i class="fa-sharp fa-solid fa-bookmark shoe_item--icon"></i>` : ''}
                             <img src="${product.images[0].img || ""}" alt="${
           product.name
         }" class="fix__height--img">
                         </div>
                         <div class="shoe_item--content">
-                            <div class="bag_content--discount">
+                        ${random %2==0?( `<div class="bag_content--discount">
                                 <p>Sale</p><span>${sales}%</span>
-                            </div>
+                            </div>`) : ''}
+                            
                             <div class="shoe_content--name">
                                 <span>${product.name}</span>
                             </div>
@@ -372,25 +375,13 @@ async function ShowHistoryOrders(pageIndex, IdClass) {
 
 
                         <div class="shop">
-                            <div class="check">
-                                <p class="real">Mall</p>
-                            </div>
-                            <div class="shop_name">
-                                <p> ${product.brandName} </p>
-                            </div>
-                            <div class="viewstore" onclick="InsertIdProductLocal('${
-                              product.idProduct
-                            }')">
-                                <i class="fa-solid fa-shop"></i>
-                                <a href="#">View store</a>
-                            </div>
+                            <h5 class="product_name" style="">Mã đơn hàng: ${product.orderId}</h5>
                         </div>
                         <div class="product_information">
                             <div class="product_information--img">
                                 <img src="${product.img}" alt="">
                             </div>
                             <div class="product_information--user">
-                                <p class="product_name">Mã đơn hàng: ${product.orderId}</p>
                                 <p class="product_color">Tên khách hàng: ${
                                   product.fullName
                                 }</p>
@@ -432,18 +423,7 @@ async function ShowHistoryOrders(pageIndex, IdClass) {
                             <i class="fa-solid fa-truck"></i>
                             <span>${ShipStatus}</span>
                         </div>
-                        <div class="option">
-                            <div class="feedback" onclick="InsertIdProductFromShopLocal('${
-                              product.idProduct
-                            }')">
-                                <button>Feedback</button>
-                            </div>
-                            <div class="buyback" onclick="InsertIdProductFromShopLocal('${
-                              product.idProduct
-                            }')">
-                                <button>Buy back</button>
-                            </div>
-                        </div>
+                        
                 `;
 
         productContainer.appendChild(productDiv);

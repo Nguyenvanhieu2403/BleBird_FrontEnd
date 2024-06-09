@@ -5,6 +5,12 @@ body {
     margin: 0;
 }
 
+.dontShowfavourit::before {
+    content: "" !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
 /* header */
 .header__logo{
     text-align: center;
