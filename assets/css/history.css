@@ -202,7 +202,7 @@ body {
     font-size: 20px;
 }
 
-.function__item--history i, .function__item--account i {
+.function__item--history" id="function__item--history i, .function__item--account i {
     padding-left: 3px ;
     font-size: 22px;
 }
@@ -211,7 +211,7 @@ body {
     color: red;
 }
 
-.function__item--history a {
+.function__item--history" id="function__item--history a {
     color: red;
 }
 /* / function / */
