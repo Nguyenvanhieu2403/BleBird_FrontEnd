@@ -868,8 +868,8 @@ function generateProductDetail(colors, sizes, productDetail, numbers) {
     productDetailArray.push({
       number: number,
       description: productDetail,
-      color: color,
-      size: size,
+      color: size,
+      size: color,
     });
   }
 
