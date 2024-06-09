@@ -762,3 +762,138 @@ body {
 .fa-square-instagram {
     margin-right: 2px;
 }
+
+.pay {
+    text-align: center;
+    border: 1px solid black;
+    width: 70%;
+    margin-left: 15%;
+    position: absolute;
+    top: 5%;
+    background-color: white;
+    color: gray;
+    display: none;
+}
+
+.row-form {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.mb-3 {
+    margin-bottom: 15px;
+}
+.form-label {
+    float: left;
+    clear: both;
+}
+.form-control {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.form-check-input {
+    float: left;
+    margin-right: 10px;
+}
+
+.form-check-label {
+    float: left;
+    margin-left: 5px
+}
+
+.form-check {
+    margin-bottom: 20px;
+    padding: 5px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.payment {
+    margin: 10px 0;
+}
+
+.header-cat, .product {
+    display: flex;
+    justify-content: space-between;
+}
+
+.product {
+    border: 1px solid black;
+    margin-bottom: 5px;
+}
+
+.name_quantity h3 {
+    margin: 0;
+    font-weight: normal;
+}
+
+.name_quantity h4 {
+    margin: 0;
+    font-weight: normal;
+    float: left;
+}
+
+.total-price {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid black;
+    margin-bottom: 5px;
+}
+
+.total-price h3 {
+    font-weight: normal;
+}
+
+.total-price h4 {
+    font-weight: normal;
+}
+
+.code_khuyenmai button{
+    background-color: darkgray;
+    height: 30px;
+}
+
+.code_khuyenmai input {
+    height: 30px;
+}
+
+.header-pay i {
+    position: absolute;
+    top: 3%;
+    left: 95%;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.price_vc {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid black;
+    margin-bottom: 5px;
+}
+
+.price_vc h4 {
+    font-weight: normal;
+    margin: 10px 0;
+}

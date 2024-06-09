@@ -254,6 +254,82 @@
                 </div>
             </div>
         </div>
+        <div class="pay" id="pay">
+            <div class="header-pay">
+                <h2>PAY</h2>
+                <i class="fa-solid fa-xmark" onclick="closeBuy()"></i>
+                <h3>Please check your customer information and shopping cart information before ordering</h3>
+            </div>
+            <div class="row-form">
+                <div class="form_pay">
+                    <form>
+                        <h2>Customer Infomation</h2>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Fullname</label>
+                            <input type="text" class="form-control" id="name-customer" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="address-customer" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone</label>
+                            <input type="text" class="form-control" id="phone-customer" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="text" class="form-control" id="email-customer" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cccd" class="form-label">CCCD</label>
+                            <input type="text" class="form-control" id="cccd-customer" required>
+                        </div>
+                        <h2 class="payment">Payment</h2>
+                        <div class="mb-3 form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Payment upon receipt of goods
+                            </label>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                            <label class="form-check-label" for="flexRadioDefault2">
+                                Pay by account wallet
+                            </label>
+                        </div>
+                        <input type="submit" class="btn btn-primary" onclick="AddToOrder()"></input>
+                    </form>
+                </div>
+                <div class="cart">
+                    <form>
+                        <div class="header-cat">
+                            <h2>Cart</h2>
+                            <h3>1</h3>
+                        </div>
+                        <div class="product">
+                            <div class="name_quantity" id="name_quantity">
+                                <h3 id="buy_name">Iphone14ProMax</h3>
+                                <h4 id="buy_price">1200000 x 2</h4>
+                            </div>
+                            <div class="price" id="price">2400000</div>
+                        </div>
+                        <div class="phivanchuyen">
+                            <div class="price_vc" id="price_vc">
+                                <h4>Transport fee</h4>
+                                <h4 id="vc_price">1200000 x 2</h4>
+                            </div>
+                        </div>
+                        <div class="total-price">
+                            <h3 id="price_total">Total_price</h3>
+                        </div>
+                        <div class="code_khuyenmai">
+                            <input type="text" name="" id="" placeholder="Code">
+                            <button>Confirm</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <div class="container_product_desc">
             <div class="grid ">
                 <div class="row">

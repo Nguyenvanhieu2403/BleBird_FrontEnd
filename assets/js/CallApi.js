@@ -1358,6 +1358,46 @@ async function GetAllProductViewShop() {
   }
 }
 
+async function GetProductById() {
+  try {
+    var IdProduct = localStorage.getItem("IdProduct1");
+    const getClassUrl = `https://localhost:7029/api/Product/Id?Id=${IdProduct}`;
+    const response = await fetch(getClassUrl);
+    const data = await response.json();
+    if (data.statusCode === 400) {
+      return;
+    }
+    else {
+      let quantity = document.getElementById('quantity').value
+      console.log(quantity)
+      const product = data.result 
+      console.log(product.name)
+      const fee = document.getElementById('vc_price')
+      const ramdom_fee = getRandomInt(10, 100)
+      fee.innerText = ramdom_fee
+      const nameQuantity = document.getElementById('name_quantity')
+      nameQuantity.innerHTML = `
+        <h3 id="buy_name">${product.name}</h3>
+        <h4 id="buy_price">${product.price} x ${quantity}</h4>
+      `
+      const price = document.getElementById('price')
+      const total = parseInt(product.price) * parseInt(quantity)
+      price.innerText = total
+      const total_price = document.getElementById('price_total')
+      total_price.innerText = 'Total price: ' + (total+ramdom_fee)
+    }
+  }
+  catch {
+
+  }
+}
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 // Product Detail
 async function GetProductDetail() {
   try {
@@ -1412,7 +1452,7 @@ async function GetProductDetail() {
                     <p>${checkQuantity}</p>
                 </div>
                 <div class="product_infor--button">
-                    <div class="product_button--buy" id="product_button--buy" onclick="AddToOrder()">BUY NOW</div>
+                    <div class="product_button--buy" id="product_button--buy" onclick="openBuy(), GetProductById()">BUY NOW</div>
                     <div class="product_button--add" id="product_button--add" onclick= "AddToCart()">ADD TO BAG</div>
                 </div>
                 
@@ -1711,6 +1751,16 @@ async function GetAllFeedBack(pageIndex, pageSize) {
   }
 }
 
+async function openBuy() {
+  var open = document.getElementById("pay")
+  open.style.display = "block"
+}
+
+async function closeBuy() {
+  var open = document.getElementById("pay")
+  open.style.display = "none"
+}
+
 async function AddToCart() {
   var token = localStorage.getItem("login");
   if (token === null) {
@@ -1759,103 +1809,125 @@ async function AddToCart() {
 }
 
 async function AddToOrder() {
-  var token = localStorage.getItem("login");
-  if (token === null) {
-    alert("Vui lòng đăng nhập để mua sảm phẩm");
-    return;
+  var token = localStorage.getItem("login")
+  const name = document.getElementById('name-customer').value
+  const address = document.getElementById('address-customer').value
+  const phone = document.getElementById('phone-customer').value
+  const email = document.getElementById('email-customer').value
+  const cccd = document.getElementById('cccd-customer').value
+  var option1 = document.getElementById("flexRadioDefault1").checked;
+  var option2 = document.getElementById("flexRadioDefault2").checked;
+  if (
+    name == "" ||
+    address == "" ||
+    phone == "" ||
+    email == "" ||
+    cccd == "" || (!option1 && !option2)
+  ) {
+    alert("Vui lòng nhập đầy đủ thông tin");
+    return
   }
-  var number = document.getElementById("quantity").value;
-  var IdProductDetail = document.getElementById("select__type").value;
-  if (number === 0) {
-    alert("Vui lòng chọn số lượng sản phẩm");
-    return;
-  }
-  var pay__selected = document.getElementById("pay__selected").value;
-  if (pay__selected === 2) {
-    var Card_Number = document.getElementById("Card_Number").value;
-    var Experied_Time = document.getElementById("Experied_Time").value;
-    var CVC_Number = document.getElementById("CVC_Number").value;
-
-    if (
-      Card_Number === null ||
-      Experied_Time === null ||
-      CVC_Number === null ||
-      Card_Number === undefined ||
-      Experied_Time === undefined ||
-      CVC_Number === undefined
-    )
-      alert("Vui lòng nhật thông tin thẻ");
-    else {
-      try {
-        const loginUrl = `https://localhost:7029/api/Orders?token=${token}`;
-        fetch(loginUrl, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            idProduct: IdProductDetail,
-            idDiscount: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            number: number,
-            shipPrice: 0,
-            description: "Đơn hàng mặc định",
-          }),
-        })
-          .then((response) => {
-            if (!response.ok) {
-              alert("Mua sản phẩm không thành công");
-              throw new Error("Mua sản phẩm không thành công.");
-            }
-            return response.json();
+  else {
+    if (token === null) {
+      alert("Vui lòng đăng nhập để mua sảm phẩm");
+      return;
+    }
+    var number = document.getElementById("quantity").value;
+    var IdProductDetail = document.getElementById("select__type").value;
+    if (number === 0) {
+      alert("Vui lòng chọn số lượng sản phẩm");
+      return;
+    }
+    var pay__selected = document.getElementById("pay__selected").value;
+    if (pay__selected === 2) {
+      var Card_Number = document.getElementById("Card_Number").value;
+      var Experied_Time = document.getElementById("Experied_Time").value;
+      var CVC_Number = document.getElementById("CVC_Number").value;
+  
+      if (
+        Card_Number === null ||
+        Experied_Time === null ||
+        CVC_Number === null ||
+        Card_Number === undefined ||
+        Experied_Time === undefined ||
+        CVC_Number === undefined
+      )
+        alert("Vui lòng nhật thông tin thẻ");
+      else {
+        try {
+          const loginUrl = `https://localhost:7029/api/Orders?token=${token}`;
+          fetch(loginUrl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+              idProduct: IdProductDetail,
+              idDiscount: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+              number: number,
+              shipPrice: 0,
+              description: "Đơn hàng mặc định",
+            }),
           })
-          .then((data) => {
-            alert(data.result);
-          })
-          .catch((error) => {
-            // Xử lý lỗi
-            console.error(error);
-          });
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        alert(error);
+            .then((response) => {
+              if (!response.ok) {
+                alert("Mua sản phẩm không thành công");
+                throw new Error("Mua sản phẩm không thành công.");
+              }
+              return response.json();
+            })
+            .then((data) => {
+              alert(data.result);
+            })
+            .catch((error) => {
+              // Xử lý lỗi
+              console.error(error);
+            });
+        } catch (error) {
+          console.error("Error fetching data:", error);
+          alert(error);
+        }
       }
     }
-  }
-  try {
-    const loginUrl = `https://localhost:7029/api/Orders?token=${token}`;
-    fetch(loginUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-        idProduct: IdProductDetail,
-        idDiscount: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-        number: number,
-        shipPrice: 0,
-        description: "Đơn hàng mặc định",
-      }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          alert("Mua sản phẩm không thành công");
-          throw new Error("Mua sản phẩm không thành công.");
-        }
-        return response.json();
+    try {
+      const loginUrl = `https://localhost:7029/api/Orders?token=${token}`;
+      fetch(loginUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          idProduct: IdProductDetail,
+          idDiscount: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          number: number,
+          shipPrice: 0,
+          description: "Đơn hàng mặc định",
+        }),
       })
-      .then((data) => {
-        alert(data.result);
-      })
-      .catch((error) => {
-        // Xử lý lỗi
-        console.error(error);
-      });
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    alert(error);
+        .then((response) => {
+          if (!response.ok) {
+            alert("Mua sản phẩm không thành công");
+            throw new Error("Mua sản phẩm không thành công.");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          alert(data.result);
+        })
+        .catch((error) => {
+          // Xử lý lỗi
+          console.error(error);
+        });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      alert(error);
+    }
   }
+    
+
+  
 }
 
 async function DeleteProduct(IdProduct) {
