@@ -2332,6 +2332,20 @@ function LogOut() {
   location.href = "./login.html";
 }
 
+function formatDate(dateString) {
+  // Chuyển đổi chuỗi ngày thành đối tượng Date
+  const date = new Date(dateString);
+
+  // Lấy ngày, tháng và năm
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Tháng tính từ 0-11 nên cần +1
+  const year = date.getFullYear();
+
+  // Định dạng ngày theo dd/mm/yyyy
+  return `${day}/${month}/${year}`;
+}
+
+
 async function AccountManagement() {
   try {
     let search = document.getElementById("input__search").value;
@@ -2354,8 +2368,7 @@ async function AccountManagement() {
         <tr class="product__myshop--title">
           <th>Email</th>
           <th>Account Name</th>
-          <th>Account Type</th>
-          <th>Quantity of goods sold</th>
+          <th>Date Created</th>
           <th>Quantity Purchased</th>
           <th>Tình trạng</th>
           <th>Action</th>
@@ -2368,7 +2381,7 @@ async function AccountManagement() {
         let lock = product.usedState === 10 ? "none" : "block";
         let unlock = product.usedState === 10 ? "block" : "none";
 
-        let AccountType = product.brandName != null ? "Purchase Account" : "Sale Account";
+        let AccountType = formatDate(product.brandName) ;
         
         var productDiv = document.createElement("tr");
         productDiv.className = "product__myshop--body";
@@ -2376,7 +2389,6 @@ async function AccountManagement() {
           <td>${product.email}</td>
           <td>${product.fullName}</td>
           <td>${AccountType}</td>
-          <td>${product.totalSell}</td>
           <td>${product.totalBought}</td>
           <td>
             <i class="fa-solid fa-lock lock main" id="lock" style="display: ${lock}"></i>
@@ -2425,9 +2437,10 @@ async function StoreManager() {
       table.innerHTML = `
         <tr class="product__myshop--title">
           <th>Email</th>
-          <th>Account Name</th>
-          <th>Name of the Store</th>
-          <th>Registration Date</th>
+          <th>FullName</th>
+          <th>Phone Number</th>
+          <th>Address</th>
+          <th>Quantity of goods sold</th>
           <th>Tình trạng</th>
           <th>Action</th>
         </tr>
@@ -2439,23 +2452,15 @@ async function StoreManager() {
         i++;
         let lock = product.roles === "User" ? "block" : "none";
         let unlock = product.roles === "User" ? "none" : "block";
-
-        // Format the date
-        var ngayThangBanDau = product.createDate;
-        var ngayThang = new Date(ngayThangBanDau);
-        var ngay = ngayThang.getDate();
-        var thang = ngayThang.getMonth() + 1;
-        var nam = ngayThang.getFullYear();
-        var ngayThangFormatted =
-          (ngay < 10 ? "0" : "") + ngay + "/" + (thang < 10 ? "0" : "") + thang + "/" + nam;
         
         var productDiv = document.createElement("tr");
         productDiv.className = "product__myshop--body";
         productDiv.innerHTML = `
           <td>${product.email}</td>
           <td>${product.fullName}</td>
-          <td>${product.brandName}</td>
-          <td>${ngayThangFormatted}</td>
+          <td>0${product.phoneNumber}</td>
+          <td>${product.address}</td>
+          <td>${product.totalSell}</td>
           <td>
             <i class="fa-solid fa-lock lock main" id="lock" style="display: ${lock}"></i>
             <i class="fa-solid fa-unlock unlock main" id="unlock" style="display: ${unlock}"></i>
@@ -2504,7 +2509,7 @@ async function CencorshipManagement() {
         <tr class="product__myshop--title">
           <th>Image</th>
           <th>Product's Name</th>
-          <th>Name of the Store</th>
+          <th>Creator</th>
           <th>Request</th>
           <th>Action</th>
         </tr>
