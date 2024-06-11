@@ -1,8 +1,15 @@
+body {
+    background-image: url('../img/background/login.png');
+    background-size: cover;
+}
 
 .register_form{
     text-align: center;
     margin-top: 50px;
     border: 2px solid #000;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background-color: white;
 }
 .register_form--heading h2{
     text-align: center;

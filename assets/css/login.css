@@ -1,8 +1,16 @@
+body {
+    background-image: url('../img/background/login.png');
+    background-size: cover;
+}
+
 .login_form{
     text-align: center;
     margin-top: 50px;
     border: 2px solid #000;
     height: 550px;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background-color: white;
 }
 .login_form--userName,
 .login_form--passWord{
