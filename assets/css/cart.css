@@ -126,7 +126,7 @@ body {
 /* dropdown */
 .nav_item a {
   text-decoration: none;
-  color: #000;
+  color: white;
 }
 
 .product__item {
@@ -657,4 +657,10 @@ body {
   .option {
     width: 100%;
   }
+}
+
+ul.nav_bar li.nav_item > a {
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
 }
