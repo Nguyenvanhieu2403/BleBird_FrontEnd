@@ -136,7 +136,7 @@ body {
 .nav_item--product:hover,
 .nav_item--contact:hover,
 .nav_item--login:hover {
-    box-shadow: 0px 2px 0px red;
+    box-shadow: 0px 2px 0px white;
     font-weight: bold;
 }
 /* dropdown */
@@ -186,9 +186,9 @@ body {
 
 /* function */
 .function__user {
-    border-right: 1px solid gray;
     display: block;
     width: 80%;
+   
 }
 .function__list * {
     color: #000;
@@ -202,8 +202,9 @@ body {
 }
 
 .function__item li, .function__shop li{
-    padding: 5px 0;
+    padding: 10px 0;
     padding-left: 30px;
+    border-radius: 10px;
 }
 
 .function__list li {
@@ -215,7 +216,7 @@ body {
     font-size: 20px;
 }
 
-.function__item--history" id="function__item--history i, .function__item--account i {
+.function__item--history i, .function__item--account i {
     padding-left: 3px ;
     font-size: 22px;
 }
@@ -231,12 +232,13 @@ body {
 
 /* my_shop */
 .my_shop{
-    margin-top: 5%;
+    margin-top: 2%;
 }
 .shop_manager {
     border: 1px solid black;
     width: 90%;
     margin: auto;
+    border-radius: 10px;
 }
 
 
@@ -680,4 +682,104 @@ table, th, td {
     justify-content: space-around;
     align-items: center;
   }
-  
+/* -- */
+
+.function__account-list ul {
+    padding-left: 0;
+}
+
+.function__shop--renevue {
+    background-color: #6BA361;
+    padding: 5px 0%;
+}
+
+.function__shop--li a {
+    background-color: #6BA361;
+    padding: 5px 0%;
+}
+
+.function__shop--revuenue a {
+    color: white;
+    padding: 5% 17%;
+    width: 100%;
+}
+
+.function__shop--revuenue a:hover {
+    color: red;
+    padding: 5% 17%;
+    width: 100%;
+}
+
+.function__list {
+    width: 115%;
+}
+
+.sideBar_container {
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-top: 6%;
+    margin-left: 5%;
+}
+
+.function__list ul li a {
+    padding-left: 40px ;
+}
+
+ul.function__shop li a {
+    padding-left: 5px;
+}
+
+.navigation {
+    background-color: #6BA361;
+}
+
+ul.nav_bar li.nav_item > a {
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.body__save button{
+    width: 80px;
+    height: 30px;
+    border: 0;
+    background-color: #6BA361;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+    margin-left: 76%;
+}
+
+.body__save button:hover {
+    background-color: rgb(61, 152, 28);
+}
+
+.my_revenue{
+    margin-top: 2%;
+}
+.revenue {
+    border: 1px solid gray;
+    width: 90%;
+    margin:auto;
+    border-radius: 10px;
+}
+
+.function__list a:hover {
+    color: red;
+}
+
+.function__shop--renevue a {
+    color: white;
+}
+
+.function__item--history {
+    padding: 2% 0;
+}
+
+.sideBar_container {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.shop_manager {
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}

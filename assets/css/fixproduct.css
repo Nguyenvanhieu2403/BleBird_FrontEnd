@@ -189,8 +189,9 @@ body {
 }
 
 .function__item li, .function__shop--add{
-    padding: 5px 0;
+    padding: 10px 0;
     padding-left: 30px;
+    border-radius: 5px;
 }
 
 .function__list li {
@@ -207,7 +208,7 @@ body {
     font-size: 20px;
 }
 
-.function__item--history" id="function__item--history i, .function__item--account i {
+.function__item--history i, .function__item--account i {
     padding-left: 3px ;
     font-size: 22px;
 }

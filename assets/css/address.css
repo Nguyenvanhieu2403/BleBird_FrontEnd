@@ -98,6 +98,16 @@ body {
 /* / drd / */
 
 /* Navigation */
+.navigation {
+    background-color: #6BA361;
+}
+
+ul.nav_bar li.nav_item > a {
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+}
+
 .nav_list{
     display: flex;
     justify-content: space-evenly;
@@ -116,7 +126,7 @@ body {
 .nav_item--product:hover,
 .nav_item--contact:hover,
 .nav_item--login:hover {
-    box-shadow: 0px 2px 0px red;
+    box-shadow: 0px 2px 0px white;
     font-weight: bold;
 }
 /* dropdown */
@@ -166,7 +176,6 @@ body {
 
 /* function */
 .function__user {
-    border-right: 1px solid gray;
     display: block;
     width: 80%; 
 }
@@ -184,8 +193,9 @@ body {
     padding-right: 5%;
 }
 .function__item li, .function__shop li{
-    padding: 5px 0;
+    padding: 10px 0;
     padding-left: 30px;
+    border-radius: 5px;
 }
 
 .function__list li {
@@ -197,7 +207,7 @@ body {
     font-size: 20px;
 }
 
-.function__item--history" id="function__item--history i, .function__item--account i {
+.function__item--history i, .function__item--account i {
     padding-left: 3px ;
     font-size: 22px;
 }
@@ -206,20 +216,36 @@ body {
     color: red;
 }
 
+.function__account-list ul {
+    padding-left: 0;
+}
+
+.function__item--address {
+    background-color: #6BA361;
+    padding: 5px 0%;
+}
+
 .function__item--address a {
-    color: red;
+    color: white;
+    padding: 5% 17%;
+    width: 100%;
+}
+
+.function__list {
+    width: 115%;
 }
 
 /* / function / */
 
 /* my_address */
 .my_address{
-    margin-top: 5%;
+    margin-top: 2%;
 }
 .address {
     border: 1px solid gray;
     width: 90%;
     margin: auto;
+    border-radius: 10px;
 }
 
 .address_heading {
@@ -269,20 +295,8 @@ h4 {
     border: 1px solid red;
 }
 
-.body__save button{
-    width: 200px;
-    height: 40px;
-    border: 0;
-    background-color: red;
-    border-radius: 3px;
-    color: white;
-    cursor: pointer;
-    margin-left: 70%;
-    margin-bottom: 20px;
-}
-
 .body__save button:hover {
-    background-color: rgb(209, 30, 30);
+    background-color: rgb(61, 152, 28);
 }
 /* / my_address / */
 
@@ -303,7 +317,7 @@ h4 {
     width: 25%;
     height: 40px;
     border: 0px;
-    background-color: red;
+    background-color: #6BA361;
     border-radius: 3px;
     color: white;
     cursor: pointer;
@@ -636,4 +650,65 @@ h4 {
         width: 40%;
         margin-left: 55%;
     }
+}
+
+.function__account-list ul {
+    padding-left: 0;
+}
+
+.function__item--address {
+    background-color: #6BA361;
+    padding: 5px 0%;
+}
+
+.function__item--address a {
+    color: white;
+    padding: 5% 17%;
+    width: 100%;
+}
+
+.function__list {
+    width: 115%;
+}
+
+.sideBar_container {
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-top: 6%;
+    margin-left: 5%;
+}
+
+.function__list ul li a {
+    padding-left: 40px ;
+}
+
+ul.function__shop li a {
+    padding-left: 5px;
+}
+
+.navigation {
+    background-color: #6BA361;
+}
+
+ul.nav_bar li.nav_item > a {
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+
+.body__save button:hover {
+    background-color: rgb(61, 152, 28);
+}
+
+.function__item--history {
+    padding: 2% 0;
+}
+
+.sideBar_container {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.address {
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }

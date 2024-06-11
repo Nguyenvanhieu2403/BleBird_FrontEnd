@@ -203,7 +203,7 @@ body {
 .nav_item--product:hover,
 .nav_item--contact:hover,
 .nav_item--login:hover {
-    box-shadow: 0px 2px 0px red;
+    box-shadow: 0px 2px 0px white;
     font-weight: bold;
 }
 /* dropdown */
@@ -301,7 +301,7 @@ h3 {
 
 .nav_item--service {
     font-weight: bold;
-    box-shadow: 0px 2px 0px red;
+    box-shadow: 0px 2px 0px white;
 }
 
 .nav_item--home {
@@ -504,4 +504,11 @@ h3 {
     .product{
         margin: auto;
     }
+}
+
+.nav_item > a {
+    padding-bottom: 5px;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
 }

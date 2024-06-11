@@ -120,7 +120,7 @@ body {
 .nav_item--product:hover,
 .nav_item--contact:hover,
 .nav_item--login:hover {
-  box-shadow: 0px 2px 0px red;
+  box-shadow: 0px 2px 0px white;
   font-weight: bold;
 }
 /* dropdown */
@@ -189,8 +189,9 @@ body {
 }
 .function__item li,
 .function__shop li {
-  padding: 5px 0;
+  padding: 10px 0;
   padding-left: 30px;
+  border-radius: 5px;
 }
 
 .function__list li {
@@ -202,7 +203,7 @@ body {
   font-size: 20px;
 }
 
-.function__item--history" id="function__item--history i,
+.function__item--history i,
 .function__item--account i {
   padding-left: 3px;
   font-size: 22px;
@@ -212,7 +213,7 @@ body {
   color: red;
 }
 
-.function__item--cart" id="function__item--cart a {
+.function__item--cart a {
   color: red;
 }
 /* / function / */
