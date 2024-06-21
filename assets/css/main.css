@@ -413,7 +413,7 @@ li:hover .select_option {
 .shoe_item--img::before,
 .campaign_item--img::before,
 .vest_item--img::before {
-    content: "Yêu thích";
+    content: "Like";
     display: block;
     width: 35%;
     height: 6%;

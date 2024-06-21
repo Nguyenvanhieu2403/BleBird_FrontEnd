@@ -40,6 +40,7 @@ function Login() {
         localStorage.setItem("email", data.email);
         localStorage.setItem("avata", data.avata);
         localStorage.setItem("role", data.role);
+        localStorage.setItem("idU", data.id);
         if (data.status === "Thành công") {
           window.location.href = "../../index.html";
         } else {
@@ -375,28 +376,28 @@ async function ShowHistoryOrders(pageIndex, IdClass) {
 
 
                         <div class="shop">
-                            <h5 class="product_name" style="">Mã đơn hàng: ${product.orderId}</h5>
+                            <h5 class="product_name" style="">Code order: ${product.orderId}</h5>
                         </div>
                         <div class="product_information">
                             <div class="product_information--img">
                                 <img src="${product.img}" alt="">
                             </div>
                             <div class="product_information--user">
-                                <p class="product_color">Tên khách hàng: ${
+                                <p class="product_color">Customer name: ${
                                   product.fullName
                                 }</p>
                                 <p class="product_quantity">Email: ${
                                   product.email
                                 }</p>
-                                <p class="product_size">SĐT: 0${
+                                <p class="product_size">Phone number: 0${
                                   product.phoneNumber
                                 }</p>
-                                <p class="product_size">Địa chỉ: ${
+                                <p class="product_size">Address: ${
                                   product.address
                                 }</p>
                             </div>
                             <div class="product_information--info">
-                                <p class="product_name">Tên sản phẩm: ${product.name}</p>
+                                <p class="product_name">Product name: ${product.name}</p>
                                 <p class="product_color">Color: ${
                                   product.color
                                 }</p>
@@ -939,7 +940,7 @@ async function GetAllCart(pageIndex, pageSize, search) {
         productDiv.setAttribute("data-cart-id", product.id);
         let BrandType = product.brandName;
         if (product.brandName == "BleuBird") BrandType = "Mall";
-        else BrandType = "Yêu thích";
+        else BrandType = "Like";
         productDiv.innerHTML = `
                     <div class="shop">
                         <div class="check">
@@ -1616,8 +1617,8 @@ async function GetProductDetail() {
       product_about.className = "product_about";
       product_about.innerHTML = "";
       product_about.innerHTML = `
-                <div class="product_about--rate">Đánh giá: 15k</div>
-                <div class="product_about--total">Sản phẩm: 72</div>
+                <div class="product_about--rate">Evaluate: 15k</div>
+                <div class="product_about--total">Product: 72</div>
             `;
       product_desc__logo.appendChild(product_about);
       var product_desc__text = document.getElementById("product_desc--text");
@@ -2437,7 +2438,7 @@ async function AccountManagement() {
           <th>Account Name</th>
           <th>Date Created</th>
           <th>Quantity Purchased</th>
-          <th>Tình trạng</th>
+          <th>Account Status</th>
           <th>Action</th>
         </tr>
       `;
@@ -2508,7 +2509,7 @@ async function StoreManager() {
           <th>Phone Number</th>
           <th>Address</th>
           <th>Quantity of goods sold</th>
-          <th>Tình trạng</th>
+          <th>Account Status</th>
           <th>Action</th>
         </tr>
       `;
@@ -2986,4 +2987,45 @@ async function UnLockAndLockAsync(check) {
       }
     } else alert("Hành động đã bị hủy");
   }
+}
+
+async function UpdateInforAccount() {
+  var Id = localStorage.getItem("idU");
+  var email_input = document.getElementById("email_input").value;
+  var firstname_input = document.getElementById("firstname_input").value;
+  var lastname_input = document.getElementById("lastname_input").value;
+  var phonenumber_input = document.getElementById("phonenumber_input").value;
+  var birth_input = document.getElementById("birth_input").value;
+
+  const loginUrl = `https://localhost:7029/api/Users/UpdateInforUser`;
+  fetch(loginUrl, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      id: Id,
+      email: email_input,
+      firstName: firstname_input,
+      lastName: lastname_input,
+      phone: phonenumber_input,
+      gender: 0,
+      dateOfBirth: birth_input,
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        alert("Cập nhật thông tin không thành công");
+        throw new Error("Cập nhật thông tin không thành công");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      alert(data.result);
+      location.reload(true);
+    })
+    .catch((error) => {
+      // Xử lý lỗi
+      console.error(error);
+    });
 }

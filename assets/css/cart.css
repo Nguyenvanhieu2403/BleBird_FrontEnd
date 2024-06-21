@@ -150,6 +150,7 @@ body {
   padding: 15px 60px 15px 10px;
   border-bottom: 1px solid lightgray;
   list-style: none;
+  color: black
 }
 
 .product__item li:hover {
@@ -170,7 +171,6 @@ body {
 
 /* function */
 .function__user {
-  border-right: 1px solid gray;
   display: block;
   width: 80%;
 }
@@ -214,7 +214,7 @@ body {
 }
 
 .function__item--cart a {
-  color: red;
+  color: white;
 }
 /* / function / */
 
@@ -226,7 +226,9 @@ body {
 .cart {
   border: 1px solid black;
   width: 100%;
-  margin-top: 5%;
+  margin-top: 2%;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .cart img {
@@ -369,6 +371,9 @@ body {
   justify-content: space-around;
   height: 50px;
   flex-wrap: wrap;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 10px;
+  border: 1px solid black;
 }
 
 .select_all span {
@@ -399,7 +404,6 @@ body {
 }
 
 .option {
-  border: 1px solid black;
   margin-top: 10%;
   width: 90%;
 }
@@ -663,4 +667,87 @@ ul.nav_bar li.nav_item > a {
   color: white;
   font-size: 18px;
   font-weight: 600;
+}
+
+.function__account-list ul {
+  padding-left: 0;
+}
+
+/* .function__item--shop > a {
+  background-color: #6BA361;
+  padding: 5px 0%;
+} */
+
+.function__item--profile a {
+  /* color: white; */
+  padding: 5% 17%;
+  width: 100%;
+}
+
+.function__list {
+  width: 115%;
+}
+
+.sideBar_container {
+  border: 1px solid black;
+  border-radius: 10px;
+  margin-top: 6%;
+  margin-left: 5%;
+}
+
+.function__list ul li a {
+  padding-left: 40px ;
+}
+
+ul.function__shop li a {
+  padding-left: 5px;
+}
+
+.navigation {
+  background-color: #6BA361;
+}
+
+ul.nav_bar li.nav_item > a {
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.body__save button{
+  width: 80px;
+  height: 30px;
+  border: 0;
+  background-color: #6BA361;
+  border-radius: 3px;
+  color: white;
+  cursor: pointer;
+  margin-left: 76%;
+}
+
+.body__save button:hover {
+  background-color: rgb(61, 152, 28);
+}
+
+.my_shop {
+  margin-top: 2%;
+}
+.shop_manager {
+  border: 1px solid gray;
+  width: 90%;
+  margin:auto;
+  border-radius: 10px;
+}
+
+.function__item--cart {
+  background-color: #6BA361;
+  border-radius: 5px;
+  padding: 2% 0;
+}
+
+.sideBar_container {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.history {
+      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
